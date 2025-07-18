@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { BitgoService } from './bitgo.service';
 import { CreateWalletDto } from './dto/create-wallet-dto';
 
@@ -11,15 +11,11 @@ export class BitgoController {
     const bitgo = this.bitgoService.getBitgoInstance();
 
     try {
-      // Create a new Bitcoin wallet (example for BTC, adjust for other coins)
-      const walletData = await bitgo
-        .coin('tbtc') // Use 'tbtc' for testnet Bitcoin, 'btc' for mainnet
-        .wallets()
-        .generateWallet({
-          label: body.label,
-          passphrase: body.passphrase,
-          enterprise: '6879f813fd80a9fd8402333bb331619c',
-        });
+      const walletData = await bitgo.coin('tbtc').wallets().generateWallet({
+        label: body.label,
+        passphrase: body.passphrase,
+        enterprise: '6879f813fd80a9fd8402333bb331619c',
+      });
 
       return {
         walletId: walletData.wallet.id(),
@@ -28,11 +24,5 @@ export class BitgoController {
     } catch (error) {
       throw new Error(`Failed to create wallet: ${error.message}`);
     }
-  }
-  @Get('test')
-  async testRole() {
-    const bitgo = this.bitgoService.getBitgoInstance();
-    const userInfo = await bitgo.me();
-    console.log(userInfo);
   }
 }

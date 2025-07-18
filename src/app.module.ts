@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BitgoModule } from './bitgo/bitgo.module';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaModule } from './prisma/prisma.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -10,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: '.env',
     }),
     BitgoModule,
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
