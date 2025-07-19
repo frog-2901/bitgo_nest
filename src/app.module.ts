@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { BitgoModule } from './bitgo/bitgo.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -12,6 +13,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     BitgoModule,
     PrismaModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
